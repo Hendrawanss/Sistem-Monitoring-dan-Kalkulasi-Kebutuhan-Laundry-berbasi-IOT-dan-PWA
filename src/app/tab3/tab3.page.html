@@ -24,21 +24,27 @@
     <ion-list-header>
       <ion-label><b>Personal</b></ion-label>
     </ion-list-header>
-    <ion-item href="/history">
+    <ion-item tappable (click)="gotoHistoryPage()">
       <ion-label>History</ion-label><ion-icon slot="end" name="arrow-forward"></ion-icon>
     </ion-item>
-    <ion-item href="#">
+    <ion-item tappable (click)="gotoKebutuhanPage()">
       <ion-label>Kebutuhan</ion-label><ion-icon slot="end" name="arrow-forward"></ion-icon>
     </ion-item>
-    <ion-item href="/about">
-      <ion-label>Tentang Kami</ion-label><ion-icon slot="end" name="arrow-forward"></ion-icon>
+    <ion-item tappable (click)="gotoPengadaanPage()">
+      <ion-label>Pengadaan</ion-label><ion-icon slot="end" name="arrow-forward"></ion-icon>
     </ion-item>
   </ion-list>
   <ion-list>
     <ion-list-header>
       <ion-label><b>Pengaturan</b></ion-label>
     </ion-list-header>
-    <ion-item href="#">
+    <ion-item tappable (click)="gotoPanduanPage()">
+      <ion-label>Panduan</ion-label><ion-icon slot="end" name="arrow-forward"></ion-icon>
+    </ion-item>
+    <ion-item tappable (click)="gotoAboutPage()">
+      <ion-label>Tentang Kami</ion-label><ion-icon slot="end" name="arrow-forward"></ion-icon>
+    </ion-item>
+    <ion-item tappable (click)="userLogout()">
       <ion-label>Logout</ion-label><ion-icon slot="end" name="power"></ion-icon>
     </ion-item>
   </ion-list>

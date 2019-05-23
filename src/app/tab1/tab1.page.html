@@ -9,16 +9,10 @@
     <ion-card-title>Stok Kebutuhan</ion-card-title>
   </ion-card-header>
 
-  <ion-card>
+  <ion-card *ngFor="let item of kebutuhan">
     <ion-item>
-      <ion-label>Sabun</ion-label>
-      <ion-note slot="end" color="dark">7000 mL</ion-note>
-    </ion-item>
-  </ion-card>
-  <ion-card>
-    <ion-item>
-      <ion-label>Pewangi</ion-label>
-      <ion-note slot="end" color="dark">5600 mL</ion-note>
+      <ion-label>{{ item.Nama }}</ion-label>
+      <ion-note slot="end" color="dark">{{item.Stok}} {{item.Satuan}}</ion-note>
     </ion-item>
   </ion-card>
 

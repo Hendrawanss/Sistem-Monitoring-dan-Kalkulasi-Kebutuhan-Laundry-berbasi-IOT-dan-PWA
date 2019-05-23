@@ -29,7 +29,11 @@ export class UsahaService {
     return this.firestore.collection('Usaha').doc(id).valueChanges();
   }
 
-  filDoc(id){
-    return this.firestore.collection('Usaha', ref => ref.where('Username', '==', id)).stateChanges();
+  get_Doc(user,pass){
+    return this.firestore.collection('Usaha', ref => ref.where('Username', '==', user).where('Password', '==', pass) ).snapshotChanges();
+  }
+
+  get_Doc_dinamic(field,id){
+    return this.firestore.collection('Usaha', ref => ref.where(field, '==', id)).snapshotChanges();
   }
 }

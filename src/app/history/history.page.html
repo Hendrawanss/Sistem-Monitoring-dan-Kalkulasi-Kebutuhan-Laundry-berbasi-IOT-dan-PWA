@@ -9,31 +9,10 @@
 
 <ion-content>
   <ion-list>
-    <ion-item href="/detail-history">
+    <ion-item *ngFor="let item of result" (click)="detail(item.Tanggal)">
       <ion-label>
-        <p>Tanggal Pengeluaran</p>
-        <h2>Sabtu, 20 Mei 2019</h2>
-      </ion-label>
-      <ion-icon slot="end" name="arrow-dropright"></ion-icon>
-    </ion-item>
-    <ion-item>
-      <ion-label>
-        <p>Tanggal Pengeluaran</p>
-        <h2>Senin, 22 Mei 2019</h2>
-      </ion-label>
-      <ion-icon slot="end" name="arrow-dropright"></ion-icon>
-    </ion-item>
-    <ion-item>
-      <ion-label>
-        <p>Tanggal Pengeluaran</p>
-        <h2>Selasa, 23 Mei 2019</h2>
-      </ion-label>
-      <ion-icon slot="end" name="arrow-dropright"></ion-icon>
-    </ion-item>
-    <ion-item>
-      <ion-label>
-        <p>Tanggal Pengeluaran</p>
-        <h2>Rabu, 24 Mei 2019</h2>
+        <p>Tanggal Transaksi Pemakaian</p>
+        <h2>{{ item.Tanggal | date: 'dd MMM yyyy' }}</h2>
       </ion-label>
       <ion-icon slot="end" name="arrow-dropright"></ion-icon>
     </ion-item>
