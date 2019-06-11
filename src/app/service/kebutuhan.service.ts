@@ -18,18 +18,26 @@ export class KebutuhanService {
   }
  
   update_Kebutuhan(recordID,record){
-    this.firestore.doc('Kebutuhan/' + recordID).update(record);
+    return this.firestore.doc('Kebutuhan/' + recordID).update(record);
   }
  
   delete_Kebutuhan(record_id) {
-    this.firestore.doc('Kebutuhan/' + record_id).delete();
+    return this.firestore.doc('Kebutuhan/' + record_id).delete();
   }
 
   get_Single(id){
     return this.firestore.collection('Kebutuhan').doc(id).valueChanges();
   }
 
-  get_Doc(field,exp,id){
-    return this.firestore.collection('Kebutuhan', ref => ref.where(field, exp, id)).snapshotChanges();
+  get_stockable_kebutuhan(id){
+    return this.firestore.collection('Kebutuhan', ref => ref.where('id_usaha','==',id).where('stockable','==',true)).valueChanges();
+  }
+
+  get_list_stockable_kebutuhan(id){
+    return this.firestore.collection('Kebutuhan', ref => ref.where('id_usaha','==',id).where('stockable','==',true)).snapshotChanges();
+  }
+
+  get_list_data_kebutuhan(id){
+    return this.firestore.collection('Kebutuhan', ref => ref.where('id_usaha','==', id)).snapshotChanges();
   }
 }

@@ -1,6 +1,7 @@
 <ion-header>
   <ion-toolbar color="primary">
     <ion-title>Beranda</ion-title>
+    <ion-icon slot="end" name="add" tappable (click)="openModal()"></ion-icon>
   </ion-toolbar>
 </ion-header>
 
@@ -9,33 +10,29 @@
     <ion-card-title>Stok Kebutuhan</ion-card-title>
   </ion-card-header>
 
-  <ion-card *ngFor="let item of kebutuhan">
+  <ion-card *ngFor="let i of kebutuhan">
     <ion-item>
-      <ion-label>{{ item.Nama }}</ion-label>
-      <ion-note slot="end" color="dark">{{item.Stok}} {{item.Satuan}}</ion-note>
+      <ion-label>{{ i.nama }}</ion-label>
+      <ion-note slot="end" color="dark">{{i.stok}} {{i.satuan}}</ion-note>
     </ion-item>
   </ion-card>
 
   <ion-card-header>
-    <ion-card-title>Monitoring Bulan Ini</ion-card-title>
+    <ion-card-title>Status Laundry</ion-card-title>
   </ion-card-header>
     
   <ion-list>
     <ion-item>
-      <ion-label>Listrik</ion-label>
-      <ion-note slot="end" color="dark">5600 KWH</ion-note>
+      <ion-label>Masuk</ion-label>
+      <ion-note slot="end" color="dark">5</ion-note>
     </ion-item>
     <ion-item>
-      <ion-label>Air</ion-label>
-      <ion-note slot="end" color="dark">2000 Kubik</ion-note>
+      <ion-label>Status Dalam Process</ion-label>
+      <ion-note slot="end" color="dark">4</ion-note>
     </ion-item>
     <ion-item>
-      <ion-label>Sabun</ion-label>
-      <ion-note slot="end" color="dark">7800 mL</ion-note>
-    </ion-item>
-    <ion-item>
-      <ion-label>Pewangi</ion-label>
-      <ion-note slot="end" color="dark">5600 mL</ion-note>
+      <ion-label>Belum Diambil</ion-label>
+      <ion-note slot="end" color="dark">1</ion-note>
     </ion-item>
   </ion-list>
 

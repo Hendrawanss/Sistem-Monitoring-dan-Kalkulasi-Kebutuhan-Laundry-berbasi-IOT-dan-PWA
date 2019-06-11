@@ -22,17 +22,9 @@ export class Tab3Page {
     private router: Router,
     private usahaService: UsahaService, 
     private storage: Storage,
-    private alertCtrl: AlertService) 
+    private alertCtrl: AlertService,) 
     { 
-      this.storage.get('id_usaha').then((response) => {
-        if (response) {
-          this.usahaService.get_Single(response['id_usaha']).subscribe(
-            data=>{
-              this.usaha = data;
-              console.log(data);
-          });  
-        }
-      });
+      
     }
 
   gotoKebutuhanPage(){
@@ -55,5 +47,13 @@ export class Tab3Page {
   }
 
   ngOnInit() {
+    this.storage.get('id_usaha').then((response) => {
+      if (response) {
+        this.usahaService.get_Single(response['id_usaha']).subscribe(
+          data=>{
+            this.usaha = data;
+        });
+      }
+    });
   }
 }

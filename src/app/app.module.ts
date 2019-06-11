@@ -15,6 +15,8 @@ import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { IonicStorageModule } from '@ionic/storage';
 import { AuthGuardService } from './service/auth-guard.service';
 import { AuthenticationService } from './service/Authentication.service';
+import { InputTransaksiPageModule } from './input-transaksi/input-transaksi.module';
+import { InputKebutuhanPageModule } from './input-kebutuhan/input-kebutuhan.module';
 
 import { FormsModule } from '@angular/forms';
 import { ServiceWorkerModule } from '@angular/service-worker';
@@ -30,6 +32,8 @@ import { ServiceWorkerModule } from '@angular/service-worker';
     AngularFireModule.initializeApp(environment.firebase), 
     AngularFirestoreModule, 
     AngularFireDatabaseModule,
+    InputTransaksiPageModule,
+    InputKebutuhanPageModule,
     FormsModule,
     ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
   ],

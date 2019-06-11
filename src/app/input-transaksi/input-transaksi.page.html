@@ -1,0 +1,44 @@
+<ion-header>
+  <ion-toolbar color="primary" text-center>
+    <ion-title>Transaksi Masuk</ion-title>
+    <ion-icon slot="end" name="close" (click)="closeModal()"></ion-icon>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content padding>
+
+  <ion-item>
+    <ion-label position="floating">Nama Pelanggan</ion-label>
+    <ion-input [(ngModel)]="nama" type="text"></ion-input>
+  </ion-item>
+  <ion-item>
+      <ion-label position="floating">Kebutuhan</ion-label>
+      <ion-select [(ngModel)]="idKebutuhan" placeholder="Select One">
+        <ion-select-option *ngFor="let item of data" value="{{item.id}}">{{item.nama}}</ion-select-option>
+      </ion-select>
+    </ion-item>
+  <ion-item>
+    <ion-label position="floating">Proses</ion-label>
+    <ion-select [(ngModel)]="type" placeholder="Select One">
+      <ion-select-option value="1">Pengurangan</ion-select-option>
+      <ion-select-option value="2">Penambahan</ion-select-option>
+    </ion-select>
+  </ion-item>
+  <ion-item>
+    <ion-label position="floating">Jumlah</ion-label>
+    <ion-input [(ngModel)]="jumlah" type="number"></ion-input>
+  </ion-item>
+  <ion-item>
+    <ion-label position="floating">Berat</ion-label>
+    <ion-input [(ngModel)]="berat" type="number" placeholder="Satuan KG"></ion-input>
+  </ion-item>
+  <ion-item>
+    <ion-label position="floating">Tanggal Masuk</ion-label>
+    <ion-datetime [(ngModel)]="tglMasuk" display-format="MMM DD, YYYY"></ion-datetime>
+  </ion-item>
+  <ion-item>
+    <ion-label position="floating">Tanggal Keluar</ion-label>
+    <ion-datetime [(ngModel)]="tglKeluar" display-format="MMM DD, YYYY"></ion-datetime>
+  </ion-item>
+  <ion-button (click)="setTransaksi()" expand="full" shape="round" [disabled]="!nama || !idKebutuhan || !type || !jumlah || !berat ||!tglKeluar || !tglMasuk ">Submit</ion-button>
+</ion-content>

@@ -4,49 +4,16 @@
       <ion-back-button defaultHref="user/tabs/tab3"></ion-back-button>
     </ion-buttons>
     <ion-title>Kebutuhan</ion-title>
+    <ion-icon slot="end" name="add" tappable (click)="openModal()"></ion-icon>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
-    <ion-grid fixed>
-        <ion-row>
-          <ion-col>
-            <ion-item>
-              <ion-input placeholder="Enter Nama kebutuhan" [(ngModel)]="nama"></ion-input>
-            </ion-item>
-            <ion-item>
-              <ion-input placeholder="Enter Harga Kebutuhan" [(ngModel)]="harga"></ion-input>
-            </ion-item>
-            <ion-item>
-              <ion-input placeholder="Enter Satuan" [(ngModel)]="satuan"></ion-input>
-            </ion-item>
-            <ion-item>
-              <ion-input placeholder="Enter Status" [(ngModel)]="status"></ion-input>
-            </ion-item>
-            <ion-item>
-              <ion-input placeholder="Enter Stockable" [(ngModel)]="stockable"></ion-input>
-            </ion-item>
-            <ion-item>
-              <ion-input placeholder="Enter Stok" [(ngModel)]="stok"></ion-input>
-            </ion-item>
-          </ion-col>
-        </ion-row>
-        <ion-row>
-          <ion-col text-center>
-            <ion-button (click)="CreateRecord()" [disabled]="!nama || !harga || !satuan || !status || !stockable ||!stok ">
-              <ion-icon size="small" slot="icon-only" name="add"></ion-icon>
-              &nbsp;Create Record
-            </ion-button>
-          </ion-col>
-        </ion-row>
-      </ion-grid>
-     
-     
       <ion-card *ngFor="let item of kebutuhan">
         <span *ngIf="!item.isEdit; else elseBlock">
           <ion-card-header>
-            <ion-card-title>Kebutuhan {{item.Nama}} dengan Harga Rp {{item.Harga}}/{{item.Satuan}}</ion-card-title>
-            <ion-card-subtitle>Stok: {{item.Stok}}</ion-card-subtitle>
+            <ion-card-title>Kebutuhan {{item.nama}} dengan Harga Rp {{item.harga}}/{{item.satuan}}</ion-card-title>
+            <ion-card-subtitle>Stok: {{item.stok}} Status: {{item.status}}</ion-card-subtitle>
           </ion-card-header>
           <ion-card-content>
      
@@ -84,21 +51,33 @@
           </ion-card-header>
           <ion-card-content>
               <ion-item>
+                  <ion-label position="floating">Nama</ion-label>
                   <ion-input placeholder="Enter Nama Kebutuhan" [(ngModel)]="item.EditNama"></ion-input>
                 </ion-item>
                 <ion-item>
+                  <ion-label position="floating">Harga</ion-label>
                   <ion-input placeholder="Enter Harga Kebutuhan" [(ngModel)]="item.EditHarga"></ion-input>
                 </ion-item>
                 <ion-item>
+                  <ion-label position="floating">Satuan</ion-label>
                   <ion-input placeholder="Enter Satuan" [(ngModel)]="item.EditSatuan"></ion-input>
                 </ion-item>
                 <ion-item>
-                  <ion-input placeholder="Enter Status" [(ngModel)]="item.EditStatus"></ion-input>
+                  <ion-label position="floating">Status</ion-label>
+                  <ion-select [(ngModel)]="item.EditStatus" placeholder="Select One">
+                    <ion-select-option value="true">True</ion-select-option>
+                    <ion-select-option value="false">False</ion-select-option>
+                  </ion-select>
                 </ion-item>
                 <ion-item>
-                  <ion-input placeholder="Enter Stockable" [(ngModel)]="item.EditStockable"></ion-input>
-                </ion-item>
+                  <ion-label position="floating">Stockable</ion-label>
+                  <ion-select [(ngModel)]="item.EditStockable" placeholder="Select One">
+                    <ion-select-option value="true">True</ion-select-option>
+                    <ion-select-option value="false">False</ion-select-option>
+                  </ion-select>
+                  </ion-item>
                 <ion-item>
+                  <ion-label position="floating">Stok</ion-label>
                   <ion-input placeholder="Enter Jumlah Stok" [(ngModel)]="item.EditStok"></ion-input>
                 </ion-item>
           </ion-card-content>

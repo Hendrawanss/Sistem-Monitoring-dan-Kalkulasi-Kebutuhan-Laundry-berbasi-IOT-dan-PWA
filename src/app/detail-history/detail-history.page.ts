@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Storage } from '@ionic/storage';
 import { AngularFirestore } from '@angular/fire/firestore';
+import * as firebase from 'firebase';
 
 @Component({
   selector: 'app-detail-history',
@@ -9,9 +10,7 @@ import { AngularFirestore } from '@angular/fire/firestore';
   styleUrls: ['./detail-history.page.scss'],
 })
 export class DetailHistoryPage implements OnInit {
-  tahun: any;
-  bulan: any;
-  tgl: any;
+  mill: any;
 
   kebutuhan: {}
   trans:any;
@@ -25,12 +24,10 @@ export class DetailHistoryPage implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.tahun = this.activeRoute.snapshot.paramMap.get('tahun');
-    this.bulan = this.activeRoute.snapshot.paramMap.get('bulan');
-    this.tgl = this.activeRoute.snapshot.paramMap.get('tgl');
+    this.mill = this.activeRoute.snapshot.paramMap.get('millis');
     this.storage.get('id_usaha').then((response) => {
       if (response) {
-        this.trans = this.firestore.collection('Transaksi', ref => ref.where('Tanggal','==',this.tahun+'/'+this.bulan+'/'+this.tgl)).get().subscribe(docSnaps => {
+        this.trans = this.firestore.collection('Transaksi', ref => ref.where('Tanggal','==', firebase.firestore.Timestamp.fromMillis(this.mill))).get().subscribe(docSnaps => {
           docSnaps.forEach((doc) => {
             this.items[doc.id] = doc.data()
             this.firestore.collection('Kebutuhan').doc(doc.data()['ID Kebutuhan']).get().subscribe(docSnap => {

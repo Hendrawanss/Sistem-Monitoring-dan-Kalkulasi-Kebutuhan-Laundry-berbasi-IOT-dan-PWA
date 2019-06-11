@@ -1,7 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { Storage } from '@ionic/storage';
-import { Router } from '@angular/router';
-import {KebutuhanService} from './../service/kebutuhan.service'
+import {KebutuhanService} from './../service/kebutuhan.service';
+import { ModalController } from '@ionic/angular';
+import { InputKebutuhanPage } from './../input-kebutuhan/input-kebutuhan.page';
+
+
 
 @Component({
   selector: 'app-view-kebutuhan',
@@ -10,65 +13,55 @@ import {KebutuhanService} from './../service/kebutuhan.service'
 })
 export class ViewKebutuhanPage implements OnInit {
   kebutuhan:any;
-  harga:string;
-  nama:string;
-  satuan:string;
-  status:boolean;
-  stockable:boolean;
-  stok:string;
+  dataReturned:any;
 
   constructor(
     private kebutuhanService: KebutuhanService,
     private storage: Storage,
-    private router: Router,
-  ) { }
+    public modalCtrl: ModalController
+  ) {
+
+  }
  
   ngOnInit() {
     this.storage.get('id_usaha').then((response) => {
       if (response) {
-          this.kebutuhanService.get_Doc('ID Usaha','==',response['id_usaha']).subscribe(data => {
-            this.kebutuhan = data.map(e => {
+          this.kebutuhanService.get_list_data_kebutuhan(response['id_usaha']).subscribe(datas => {
+            this.kebutuhan = datas.map(data=>{
               return {
-                id: e.payload.doc.id,
                 isEdit: false,
-                Nama: e.payload.doc.data()['Nama'],
-                Harga: e.payload.doc.data()['Harga'],
-                Satuan: e.payload.doc.data()['Satuan'],
-                Stok: e.payload.doc.data()['Stok'],
-              };
+                id:data.payload.doc.id,
+                harga:data.payload.doc.data()['harga'],
+                nama: data.payload.doc.data()['nama'],
+                satuan: data.payload.doc.data()['satuan'],
+                status: data.payload.doc.data()['status'],
+                stockable: data.payload.doc.data()['stockable'],
+                stok: data.payload.doc.data()['stok'],
+              }
+              })
             })
-            console.log(this.kebutuhan);
-      
-          });
-      }
+          }
     })
   }
- 
-  CreateRecord() {
-    let record = {};
-    this.storage.get('id_usaha').then((response) => {
-      if (response) {
-        record['Harga'] = this.harga;
-        record['ID Usaha'] = response['id_usaha'];
-        record['Nama'] = this.nama;
-        record['Satuan'] = this.satuan;
-        record['Status'] = this.status;
-        record['Stockable'] = this.stockable;
-        record['Stok'] = this.stok;
-        this.kebutuhanService.create_NewKebutuhan(record).then(resp => {
-          this.harga = "";
-          this.nama = "";
-          this.satuan = "";
-          this.status = true;
-          this.stockable = true;
-          this.stok = "";
-          console.log(resp);
-        }).catch(error => {
-            console.log(error);
-        });
+
+  async openModal() {
+    const modal = await this.modalCtrl.create({
+      component: InputKebutuhanPage,
+      componentProps: {
+        "paramID": 123,
+        "paramTitle": "Test Title"
       }
     });
+    modal.onDidDismiss().then((dataReturned) => {
+      if (dataReturned !== null) {
+        this.dataReturned = dataReturned.data;
+        //alert('Modal Sent Data :'+ dataReturned);
+      }
+    });
+ 
+    return await modal.present();
   }
+
  
   RemoveRecord(rowID) {
     this.kebutuhanService.delete_Kebutuhan(rowID);
@@ -76,22 +69,38 @@ export class ViewKebutuhanPage implements OnInit {
  
   EditRecord(record) {
     record.isEdit = true;
-    record.EditNama = record.Nama;
-    record.EditHarga = record.Harga;
-    record.EditSatuan = record.Satuan;
-    record.EditStatus = record.Status;
-    record.EditStockable = record.Stockable;
-    record.EditStok = record.Stok;
+    record.EditNama = record.nama;
+    record.EditHarga = record.harga;
+    record.EditSatuan = record.satuan;
+    if(record.status === true){
+      record.EditStatus = "true";
+    }else{
+      record.EditStatus = "false";
+    }
+    if(record.stockable === true){
+      record.EditStockable = "true";
+    }else{
+      record.EditStockable = "false";
+    }
+    record.EditStok = record.stok;
   }
  
   UpdateRecord(recordRow) {
     let record = {};
-    record['Harga'] = recordRow.EditNama;
-    record['Nama'] = recordRow.EditHarga;
-    record['Satuan'] = recordRow.EditSatuan;
-    record['Status'] = recordRow.EditStatus;
-    record['Stockable'] = recordRow.EditStockable;
-    record['Stok'] = recordRow.EditStok;
+    record['harga'] = recordRow.EditHarga;
+    record['nama'] = recordRow.EditNama;
+    record['satuan'] = recordRow.EditSatuan;
+    if(recordRow.EditStatus == "true"){
+      record['status'] = true;
+    }else{
+      record['status'] = false;
+    }
+    if(recordRow.EditStockable == "true"){
+      record['stockable'] = true;
+    }else{
+      record['stockable'] = false;
+    }
+    record['stok'] = recordRow.EditStok;
     this.kebutuhanService.update_Kebutuhan(recordRow.id, record);
     recordRow.isEdit = false;
   }

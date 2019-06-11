@@ -26,6 +26,8 @@ export class AuthenticationService {
     this.storage.get('id_usaha').then((response) => {
       if (response) {
         this.authState.next(true);
+      }else{
+        
       }
     });
   }

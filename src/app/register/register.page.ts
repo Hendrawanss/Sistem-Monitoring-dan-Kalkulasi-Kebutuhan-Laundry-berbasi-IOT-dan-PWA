@@ -35,10 +35,10 @@ export class RegisterPage implements OnInit {
 
   onClick(){
     let record = {};
-    record['Nama'] = this.namaUsaha;
-    record['Alamat'] = this.alamat;
-    record['Username'] = this.username;
-    record['Password'] = this.password;
+    record['nama_usaha'] = this.namaUsaha;
+    record['alamat'] = this.alamat;
+    record['username'] = this.username;
+    record['password'] = this.password;
     this.usahaService.create_NewUsaha(record).then(resp => {
       this.namaUsaha = "";
       this.alamat = "";
@@ -58,13 +58,13 @@ export class RegisterPage implements OnInit {
 
   addDataKebutuhan(harga,id,nama,satuan,status,stockable,stok){
     let record = {};
-    record['Harga'] = harga;
-    record['ID Usaha'] = id;
-    record['Nama'] = nama;
-    record['Satuan'] = satuan;
-    record['Status'] = status;
-    record['Stockable'] = stockable;
-    record['Stok'] = stok;
+    record['harga'] = harga;
+    record['id_usaha'] = id;
+    record['nama'] = nama;
+    record['satuan'] = satuan;
+    record['status'] = status;
+    record['stockable'] = stockable;
+    record['stok'] = stok;
     this.kebutuhanService.create_NewKebutuhan(record).then(resp => {
       console.log(resp.id);
     }).catch(error => {

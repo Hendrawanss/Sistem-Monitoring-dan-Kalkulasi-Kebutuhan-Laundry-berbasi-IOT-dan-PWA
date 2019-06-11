@@ -29,8 +29,8 @@ export class UsahaService {
     return this.firestore.collection('Usaha').doc(id).valueChanges();
   }
 
-  get_Doc(user,pass){
-    return this.firestore.collection('Usaha', ref => ref.where('Username', '==', user).where('Password', '==', pass) ).snapshotChanges();
+  get_Login(user,pass){
+    return this.firestore.collection('Usaha', ref => ref.where('username', '==', user).where('password', '==', pass) ).snapshotChanges();
   }
 
   get_Doc_dinamic(field,id){
